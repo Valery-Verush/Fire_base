@@ -8,12 +8,12 @@ export class Component extends HTMLElement {
 
     setState(callback){
         this.state = callback(this.state);
-        this.innerHTML = this.render().trim().replaceAll(/true|false/gi, '').replaceAll(',','');
+        this.innerHTML = this.render().toString().trim().replaceAll(/true|false/gi, '').replaceAll(',','');
         
     }
 
     connectedCallback(){
-        this.innerHTML = this.render().trim().replaceAll(/true|false/gi, '').replaceAll(',','');
+        this.innerHTML = this.render().toString().trim().replaceAll(/true|false/gi, '').replaceAll(',','');
         this.ComponentDidMount();
         this.registerEvents()
     }
