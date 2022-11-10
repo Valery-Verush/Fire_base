@@ -1,44 +1,48 @@
 export class Component extends HTMLElement {
-    constructor(){
-        super();
-        this.state = {};
-        this.props = {};
+  constructor() {
+    super();
+    this.state = {};
+    this.props = {};
+  }
 
-    }
+  setState(callback) {
+    this.state = callback(this.state);
+    this.innerHTML = this.render()
+      .toString()
+      .replaceAll(",", "")
+      .trim()
+      .replaceAll(/true|false/gi, "");
+  }
 
-    setState(callback){
-        this.state = callback(this.state);
-        this.innerHTML = this.render().toString().trim().replaceAll(/true|false/gi, '').replaceAll(',','');
-        
-    }
+  connectedCallback() {
+    this.innerHTML = this.render()
+      .toString()
+      .replaceAll(",", "")
+      .trim()
+      .replaceAll(/true|false/gi, "");
+    this.componentDidMount();
+    this.registerEvents();
+  }
 
-    connectedCallback(){
-        this.innerHTML = this.render().toString().trim().replaceAll(/true|false/gi, '').replaceAll(',','');
-        this.ComponentDidMount();
-        this.registerEvents()
-    }
+  disconnectedCallback() {
+    this.componentWillUnmount();
+  }
 
-    disconnectedCallback(){
-        this.ComponentWillUnMount()
-    }
+  attributeChangedCallback(name, oldValue, newValue) {
+    this.componentWillUpdate(name, oldValue, newValue);
+    this.getAttributeNames().forEach((name) => {
+      this.props[name] = this.getAttribute(name);
+    });
+  }
 
-    attributeChangedCallback(name, oldValue, newValue){
-        this.componentWillUpdatae(name, oldValue, newValue);
-        this.getAttributeNames().forEach(()=>{
-            this.props[name] =this.getAttribute(name);
-        })
-    }
+  dispatch(type, props) {
+    this.dispatchEvent(new CustomEvent(type, { bubbles: true, detail: props }));
+  }
 
-    dispatch(){
-        this.dispatchEvent(new CustomEvent(type, {bubbles:true, detail: props}))
-    }
-
-
-
-    registerEvents(){}
-    ComponentDidMount(){}
-    componentWillUpdatae(){}
-    ComponentWillUnMount(){}
-    render(){}
-
+  registerEvents() {}
+  componentDidMount() {}
+  componentWillUnmount() {}
+  componentWillUpdate() {}
+  componentWillUnmount() {}
+  render() {}
 }

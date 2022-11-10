@@ -1,43 +1,42 @@
 import { Component } from "./core";
 import "./components/Button/Button";
-import {  } from "./services/todolist/TodoList.js";
+import { todoList } from "./services/todolist/TodoList.js";
 
-export class App extends Component{
-  constructor(){
-    super()
+export class App extends Component {
+  constructor() {
+    super();
     this.state = {
       isLoading: false,
-      value: '',
-    }
+      value: "",
+    };
   }
 
-  registerEvents(){
-    this.addEventListener('input', (evt) => {
-      if(evt.target.closest('.form-control')){
-        this.setSate((state) => {
-          return{
-          ...state ,
-          value: evt.target.value,
+  registerEvents() {
+    this.addEventListener("change", (evt) => {
+      if (evt.target.closest(".form-control")) {
+        this.setState((state) => {
+          return {
+            ...state,
+            value: evt.target.value,
           };
         });
       }
     });
-      window.addEventListener('save-task', () =>{
-        this.setState((state) => ({...state, isLoading: true}));
-        todoList.createTask({title: this.state.value}).finaly(()=>{
-          this.setState((state)=>({...state, isLoading: false}));
-        })
-      })
-    }
-    
-  
+    window.addEventListener("save-task", () => {
+      this.setState((state) => ({ ...state, isLoading: true }));
+      todoList.createTask({ title: this.state.value }).finally(() => {
+        this.setState((state) => ({ ...state, isLoading: false }));
+      });
+    });
+  }
 
-    render(){
-        return `
+  render() {
+    return `
         ${
-          this.state.isLoading && `
-          <div>
-            <div class="spinner-border text-light" role="status">
+          this.state.isLoading &&
+          `
+          <div class='d-flex justify-content-center position-absolute' style='z-index:1; top:50%;left:50%'>
+            <div class="spinner-border text-danger" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
           </div>
@@ -46,8 +45,10 @@ export class App extends Component{
 
         <div class='container mt-5'>
         <div class="input-group mb-3">
-          <input value="${this.state.value}" type="text" class="form-control" placeholder="Add a new task" aria-label="Recipient's username" aria-describedby="button-addon2">
-          <my-button content="Save" classname="btn btn-outline-primary"></my-button>
+          <input value="${
+            this.state.value
+          }" type="text" class="form-control" placeholder="Add a new task" aria-label="Recipient's username" aria-describedby="button-addon2">
+          <my-button eventtype='save-task' content="Save" classname="btn btn-outline-primary"></my-button>
         </div>
         <ul class="list-group">
           <li class="list-group-item">
@@ -65,9 +66,8 @@ export class App extends Component{
             </div>
           </li>
         </ul>
-      </div>`
-    }
-
+      </div>`;
+  }
 }
 
-customElements.define('my-app', App)
+customElements.define("my-app", App);

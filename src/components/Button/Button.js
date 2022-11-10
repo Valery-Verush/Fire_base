@@ -1,25 +1,23 @@
 import { Component } from "../../core";
-import './Button.scss'
+import "./Button.scss";
 
-export class Button extends Component{
+export class Button extends Component {
+  registerEvents() {
+    this.addEventListener("click", () => {
+      this.dispatch(this.props.eventtype);
+    });
+  }
 
-    registerEvents(){
-        this.addEventListener('click', ()=>{
-            this.dispatchEvent(this.props.eventType)
-        })
-    }
+  static get observedAttributes() {
+    return ["content", "classname", "eventtype"];
+  }
 
-    static get observedAttributes(){
-        return ['content', 'classname', 'eventType'];
-    }
-
-    render (){
-        const {content, classname} = this.props;
-        return `
+  render() {
+    const { content, classname } = this.props;
+    return `
         <button type="button" class="btn ${classname}">${content}</button>
-        `
-    }
-
+        `;
+  }
 }
 
-customElements.define('my-button', Button)
+customElements.define("my-button", Button);
