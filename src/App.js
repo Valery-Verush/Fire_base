@@ -1,15 +1,12 @@
 import { Component } from "./core";
-import "./components/atoms/Button/Button";
-import "./components/atoms/input/Input";
+import "./components/molecules/inputGroup/InputGroup"
 export class App extends Component {
 
   render() {
     return `
-        <div class='container mt-5'>
-        <div class="input-group mb-3">
-          <my-input value='' placeholder='Add a new task' type='text' aria-label="Recipient's username" aria-describedby="button-addon2"></my-input>
-          <my-button eventtype='save-task' content="Save" classname="btn btn-outline-primary"></my-button>
-        </div>
+    <div class='container mt-5'>
+        <my-input-group></my-input-group>
+    </div>
         <ul class="list-group">
           <li class="list-group-item">
             <div class="form-check d-flex justify-content-between align-items-center">
