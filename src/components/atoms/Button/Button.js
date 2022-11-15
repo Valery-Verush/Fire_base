@@ -1,8 +1,8 @@
-import { Component } from "../../core";
+import { Component } from "../../../core";
 import "./Button.scss";
 
 export class Button extends Component {
-  registerEvents() {
+  componentDidMount() {
     this.addEventListener("click", () => {
       this.dispatch(this.props.eventtype);
     });
