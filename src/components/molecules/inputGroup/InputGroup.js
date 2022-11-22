@@ -9,10 +9,10 @@ export class InputGroup extends Component {
     evt.preventDefault();
     const task = {};
     const data = new FormData(evt.target);
-    data.forEach((value, key)=>{
-        task[key] = value;
-    })
-    this.dispatch('save-task', task)
+    data.forEach((value, key) => {
+      task[key] = value;
+    });
+    this.dispatch(this.props.type, task);
   };
 
   componentDidMount() {
@@ -22,6 +22,11 @@ export class InputGroup extends Component {
   componentWillUnmount() {
     this.removeEventListener("submit", this.onSubmit);
   }
+
+  static get observedAttributes() {
+    return ["type"];
+  }
+
   render() {
     return `
     <form class='input-group mb-3'>
