@@ -23,7 +23,7 @@ export class Input extends Component{
     }
 
     static get observedAttributes(){
-        return['type', 'placeholder', 'value']
+        return['type', 'placeholder', 'value', 'name']
     }
     onInput(evt){
         this.dispatch('custom-input', {value: evt.target.value});
@@ -38,6 +38,7 @@ export class Input extends Component{
     render(){
         return`
         <input  
+        name="${this.props.name}"
         type="${this.props.type}" 
         class="form-control" 
         placeholder='${this.props.placeholder}'

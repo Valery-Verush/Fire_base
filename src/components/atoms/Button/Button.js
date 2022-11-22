@@ -9,13 +9,13 @@ export class Button extends Component {
   }
 
   static get observedAttributes() {
-    return ["content", "classname", "eventtype"];
+    return ["content", "classname", "eventtype", 'type'];
   }
 
   render() {
     const { content, classname } = this.props;
     return `
-        <button type="button" class="btn ${classname}">${content}</button>
+        <button type="${this.props.type}" class="btn ${classname}">${content}</button>
         `;
   }
 }
