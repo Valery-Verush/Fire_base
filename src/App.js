@@ -42,14 +42,22 @@ export class App extends Component {
     }
   };
 
+  updateTask= ({detail})=>{
+      todoList.updateTask(detail.id, {title: detail.title, isCompleted:false}).then(() => {
+        this.getTasks();
+      });
+  }
+
   componentDidMount() {
     this.getTasks();
     this.addEventListener("save-task", this.saveTask);
+    this.addEventListener("edit-task", this.updateTask);
     this.addEventListener("click", this.onClick);
   }
 
   componentWillUnmount() {
     this.removeEventListener("save-task", this.saveTask);
+    this.removeEventListener("edit-task", this.updateTask);
     this.removeEventListener("click", this.onClick);
   }
 

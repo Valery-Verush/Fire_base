@@ -1,4 +1,5 @@
 import { Component } from "../../../core";
+import { Database } from "../../../services/database/Database";
 import { todoList } from "../../../services/todoList/TodoList";
 // import "../../atoms/Button/Button";
 // import "../../atoms/input/Input";
@@ -9,9 +10,13 @@ export class InputGroup extends Component {
     evt.preventDefault();
     const task = {};
     const data = new FormData(evt.target);
+    if(this.props.taskid){
+      data.append("id", this.props.taskid) 
+    }
     data.forEach((value, key) => {
       task[key] = value;
     });
+
     this.dispatch(this.props.type, task);
   };
 
@@ -24,7 +29,7 @@ export class InputGroup extends Component {
   }
 
   static get observedAttributes() {
-    return ["type"];
+    return ["type", "value","isShowcanselbutton", "taskid"];
   }
 
   render() {
@@ -35,8 +40,12 @@ export class InputGroup extends Component {
             type="text" 
             class="form-control" 
             placeholder='Add a new task'
+            value="${this.props.value ?? ''}"
         />
             <button type="submit" class="btn btn btn-outline-primary">Save</button>
+            ${
+              this.props.isshowcanselbutton 
+              ? `<button type="button" data-id="${this.props.id}" class="btn btn-sm btn-secondary edit-action">Cansel</button>` :''}
     </form>
         `;
   }
