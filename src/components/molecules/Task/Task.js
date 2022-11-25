@@ -18,7 +18,7 @@ export class Task extends Component {
       this.setState((state) => {
         return {
           ...state,
-          isEditting: true,
+          isEditting: !state.isEditting,
         };
       });
     }
@@ -37,7 +37,8 @@ export class Task extends Component {
             <div class="form-check d-flex justify-content-between align-items-center">
     ${
       this.state.isEditting
-        ? `<my-input-group type="edit-task"></my-input-group>`
+        ? `<my-input-group type="edit-task"></my-input-group>
+        <button data-id="${this.props.id}" class="btn btn-sm btn-warning m-2 edit-action">Cansel</button>`
         : `
                   <div>
                       <input class="form-check-input" type="checkbox" ${
